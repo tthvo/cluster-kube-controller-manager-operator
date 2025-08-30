@@ -14,12 +14,12 @@ extendedArguments:
   authorization-kubeconfig:
   - "/etc/kubernetes/secrets/kubeconfig"
   {{if .ClusterCIDR }}
-  cluster-cidr: {{range .ClusterCIDR}}
-  - {{.}}{{end}}
+  cluster-cidr:
+  - {{range $i, $cidr := .ClusterCIDR}}{{if $i}},{{end}}{{$cidr}}{{end}}
   {{end}}
   {{if .ServiceClusterIPRange }}
-  service-cluster-ip-range: {{range .ServiceClusterIPRange}}
-  - {{.}}{{end}}
+  service-cluster-ip-range:
+  - {{range $i, $ipRange := .ServiceClusterIPRange}}{{if $i}},{{end}}{{$ipRange}}{{end}}
   {{end}}
   pv-recycler-pod-template-filepath-nfs: # bootstrap KCM doesn't need recycler templates
   - ""
